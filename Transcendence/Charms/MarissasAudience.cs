@@ -60,7 +60,10 @@ namespace Transcendence
             var checkCount = fsm.GetState("Check Count");
             var countVar = (checkCount.Actions[0] as GetTagCount).storeResult;
             checkCount.ReplaceAction(1, () => {
-                var max = Equipped() ? 8 : 4;
+            if (IsGlorified("GlowingWomb"))
+                    var max = Equipped() ? 16 : 8;
+                else
+                    var max = Equipped() ? 8 : 4;
                 fsm.SendEvent(countVar.Value >= max ? "CANCEL" : "FINISHED");
             });
         }
